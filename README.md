@@ -1,16 +1,28 @@
 # 🦀 Duplicate finder
 
-This small tool finds duplicate files in any directory specified by hashing every file using xxHash then trying to insert it into a hashmap. On collision, the file is marked as duplicate. It's a naive approach, unoptimized, but still not too slow. Managed to scan my 5814 image files (~5Gb) in `5.443822s`, so speed is around 1Gbps (when built with `cargo build --release`)
+This small tool finds duplicate files in any directory specified by hashing every file using xxHash then trying to insert it into a hashmap. On collision, the file is marked as duplicate and added to a deletion list. Once the scan is complete, the duplicate files are deleted.
 
-## Installation:
+### Performance
 
-#### Windows:
+> Benchmarks are done with a release build and may be slower on debug/dev.
+
+Scanning my entire picture library of 18GB (~14k files) took ~22 seconds.
+
+A smaller folder of 3.2GB (~4k files) took ~4 seconds.
+
+So it's speed is slightly under 1Gbps.
+
+## Installation
+
+#### Windows
 Grab the .exe latest binaries from the [releases](https://github.com/joinemm/duplicate-finder/releases) page
 
-#### Other:
+#### Linux
 Build from source using `cargo build --release`
 
-## Usage:
+Binaries will be located in `./target/release/`
+
+## Usage
 
 ```bash
 # get help
