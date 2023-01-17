@@ -1,6 +1,8 @@
 # 🦀 Duplicate finder
 
-This small tool finds duplicate files in any directory specified by hashing every file using the extremely fast [xxHash](https://github.com/Cyan4973/xxHash) (64) then trying to insert it into a hashmap. On collision, the file is marked as duplicate and added to a deletion list. Once the scan is complete, the duplicate files are deleted.
+This small tool finds duplicate files in any directory specified using the extremely fast [xxHash](https://github.com/Cyan4973/xxHash) (64) hashing algorithm
+
+It creates a new hashmap with xxHash set as the hashing fucntion, then tries to insert every file into it. On collision, the file is marked as duplicate and added to a deletion list. Once the scan is complete, the duplicate files are deleted.
 
 ### Performance
 
