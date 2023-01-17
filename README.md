@@ -16,13 +16,7 @@ So it's speed is slightly under 1Gbps.
 
 ## Installation
 
-#### Windows
-Grab the .exe latest binaries from the [releases](https://github.com/joinemm/duplicate-finder/releases) page
-
-#### Linux
-Build from source using `cargo build --release`
-
-Binaries will be located in `./target/release/`
+Grab the latest binaries for your operating system from the [release](https://github.com/joinemm/duplicate-finder/releases) page, or build from source using `cargo build --release`, compiled binaries will be located in `./target/release/`.
 
 ## Usage
 
