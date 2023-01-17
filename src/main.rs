@@ -30,10 +30,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("Found {} duplicates", todelete.len());
     for name in &todelete {
         if !args.dry {
-            println!("X Deleting: {}", name);
-            fs::remove_file(name)?;
+            println!("X Deleting: {} ( already found as {} )", name.0, name.1);
+            fs::remove_file(name.0.clone())?;
         } else {
-            println!("Duplicate file: {}", name);
+            println!("Duplicate file: {} ( already found as {} )", name.0, name.1);
         }
     }
     println!("DONE");
@@ -47,8 +47,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 fn read_directory(
     path: std::path::PathBuf,
     database: &mut HashMap<Vec<u8>, String, BuildHasherDefault<XxHash64>>,
-) -> Result<(Vec<String>, u32), Box<dyn Error>> {
-    let mut todelete = Vec::<String>::new();
+) -> Result<(Vec<(String, String)>, u32), Box<dyn Error>> {
+    let mut todelete = Vec::<(String, String)>::new();
     let mut scanned: u32 = 0;
     println!("reading {:?}", path);
     for entry in fs::read_dir(path)? {
@@ -62,8 +62,8 @@ fn read_directory(
             let mut buffer = Vec::new();
             file.read_to_end(&mut buffer)?;
             match database.insert(buffer, format!("{}", name)) {
-                Some(_) => {
-                    todelete.push(name.to_string());
+                Some(old_file) => {
+                    todelete.push((name.to_string(), old_file));
                 }
                 None => (),
             }
